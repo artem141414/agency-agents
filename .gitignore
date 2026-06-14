@@ -56,6 +56,15 @@ coverage/
 dist/
 build/
 *.egg-info/
+# ...но сам сборочный пайплайн NEXUS — это source, его коммитим
+!build/
+build/*
+!build/build-plugins.mjs
+!build/dept-map.json
+
+# Секреты
+ssh_keys/
+.env
 
 # Personal notes and scratch files
 scratch/
@@ -78,3 +87,7 @@ integrations/qwen/agents/
 integrations/kimi/*/
 !integrations/openclaw/README.md
 !integrations/kimi/README.md
+
+# Локальные конфиги Claude Code / Obsidian (не коммитим)
+.claude/
+.obsidian/

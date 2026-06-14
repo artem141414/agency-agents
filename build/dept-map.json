@@ -1,0 +1,61 @@
+{
+  "marketplace": {
+    "name": "nexus",
+    "owner": { "name": "NEXUS Agency" },
+    "description": "NEXUS — сеть из 190+ AI-агентов для маркетинга, разработки и бизнеса в Claude Code",
+    "version": "1.0.0"
+  },
+  "defaults": {
+    "model": "sonnet",
+    "maxTurns": 20,
+    "tools": "Read, Write, Edit, WebSearch, WebFetch, Glob, Grep"
+  },
+  "plugins": {
+    "nexus-marketing-ru": {
+      "enabled": true,
+      "version": "1.0.0",
+      "description": "32 русскоязычных маркетинговых агента под Рунет 2026: VK, Telegram, TikTok, YouTube, Дзен, Rutube, Threads, OK, маркетплейсы + 9 scout-аналитиков. Стратеги по органике и платному трафику + разведка контента и трендов.",
+      "category": "marketing",
+      "tags": ["marketing", "russia", "vk", "telegram", "tiktok", "youtube", "smm", "content"],
+      "keywords": ["russian-marketing", "smm", "claude-code-skill", "nexus"],
+      "sources": ["marketing-office/agents"],
+      "tools": "Read, Write, Edit, WebSearch, WebFetch"
+    },
+    "nexus-core": {
+      "enabled": false,
+      "version": "1.0.0",
+      "description": "Оркестратор NEXUS + режимы nexus-micro/sprint/full. Координирует субагентов из департаментных плагинов.",
+      "category": "productivity",
+      "sources": []
+    },
+    "nexus-engineering": {
+      "enabled": false,
+      "version": "1.0.0",
+      "description": "Инженерные агенты: backend, frontend, data, devops, security, testing.",
+      "category": "development",
+      "sources": ["agency_agents/engineering", "agency_agents/testing", "agency_agents/integrations"],
+      "tools": "Read, Write, Edit, Bash, Glob, Grep, WebSearch, WebFetch"
+    },
+    "nexus-marketing-glo": {
+      "enabled": false,
+      "version": "1.0.0",
+      "description": "Global marketing & paid media agents.",
+      "category": "marketing",
+      "sources": ["agency_agents/marketing", "agency_agents/paid-media"]
+    },
+    "nexus-product": {
+      "enabled": false,
+      "version": "1.0.0",
+      "description": "Product, design, project management agents.",
+      "category": "productivity",
+      "sources": ["agency_agents/product", "agency_agents/design", "agency_agents/project-management"]
+    },
+    "nexus-business": {
+      "enabled": false,
+      "version": "1.0.0",
+      "description": "Sales, support, specialized domain agents.",
+      "category": "productivity",
+      "sources": ["agency_agents/sales", "agency_agents/support", "agency_agents/specialized"]
+    }
+  }
+}
