@@ -10,10 +10,13 @@ tags: [nexus, проект, статус]
 ## Что такое NEXUS
 AI-агентство: пользователь общается с командой ИИ-специалистов по отделам. Качает приложение, логинится онлайн (проверка подписки), **выбирает модель — нашу (serverless) или свой ключ любой LLM**, работает.
 
-Три кодовые базы:
-- **`marketing-office/`** — клиентское приложение (Flask), то что качает юзер. Полноценная платформа-агентство.
-- **`nexus-auth-server/`** — онлайн-сервер: авторизация подписки + прокси «Нашей модели». Единственное, что хостим.
-- **`agency_agents/`** — библиотека-источник агентов + стратегия + планы (этот репозиторий, форк msitarzewski/agency-agents).
+### Репозитории (на GitHub с 14 июня)
+- **`github.com/artem141414/nexus`** — МОНОРЕПО продукта, рабочая папка `Desktop/projects/nexus/`:
+  - `client/` — десктоп-приложение (Flask), то что качает юзер. 191 агент, оркестратор, фичи.
+  - `auth-server/` — онлайн-сервер: авторизация подписки + прокси «Нашей модели» + админка.
+- **`github.com/artem141414/agency-agents`** — форк msitarzewski/agency-agents: библиотека-источник агентов + стратегия + планы launch 00-11 + эти obsidian-заметки.
+
+> Миграция выполнена: код продукта переехал из `marketing-office/` + `nexus-auth-server/` в единый `nexus/`. Старые папки — резервная копия, можно удалить. `~/.nexus/` (сессия/конфиг/память/проекты) — в домашней папке, не переезжает.
 
 ---
 
@@ -53,9 +56,13 @@ AI-агентство: пользователь общается с команд
 ---
 
 ## Технические заметки
-- Dev: auth `:8000`, клиент `:5000`, демо `demo@nexus.ru`/`demopass123`, суперадмин `admin@nexus.ru`/`adminpass123`.
-- DeepInfra-ключ в `nexus-auth-server/.env` (вне git). Запуск клиента в dev: `NEXUS_AUTH_URL=http://127.0.0.1:8000 NEXUS_LLM_URL=http://127.0.0.1:8000/api/llm`.
-- Эталон стиля агента: `agents/vk-strategist.md`. Плоский frontmatter (парсер построчный). Реестр: `departments.json`.
-- Новые модули клиента: `llm_providers.py`, `file_extract.py`; память/readiness/вложения — в `app.py`.
+- Dev-доступы: auth `:8000`, клиент `:5000`, демо `demo@nexus.ru`/`demopass123`, суперадмин `admin@nexus.ru`/`adminpass123`.
+- Запуск из репозитория:
+  - auth: `cd nexus/auth-server && ./venv/Scripts/python.exe server.py`
+  - клиент: `cd nexus/client && NEXUS_AUTH_URL=http://127.0.0.1:8000 NEXUS_LLM_URL=http://127.0.0.1:8000/api/llm ./.venv/Scripts/python.exe app.py`
+- DeepInfra-ключ в `nexus/auth-server/.env` (в gitignore, не в репо). Проверка ключей: `python verify_keys.py`.
+- Эталон стиля агента: `client/agents/vk-strategist.md`. Плоский frontmatter (парсер построчный). Реестр: `client/departments.json`.
+- Модули клиента: `app.py` (роуты/оркестратор/память/readiness/вложения), `llm_providers.py` (мульти-LLM+эскалация), `file_extract.py` (документы). Сервер: `server.py` (auth+прокси), `admin.py` (админка).
+- Секреты НЕ в git: `.env`, `*.db`, venv, сборки — в `.gitignore` обоих репо.
 
 См. операционную память проекта (`memory/nexus-platform-evolution.md` и др.).
